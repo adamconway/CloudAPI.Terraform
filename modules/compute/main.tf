@@ -36,4 +36,21 @@ resource "azurerm_function_app" "compute" {
   app_service_plan_id        = azurerm_app_service_plan.functions.id
   storage_account_name       = azurerm_storage_account.functions.name
   storage_account_access_key = azurerm_storage_account.functions.primary_access_key
+
+  https_only = true
+
+#  site_config {
+#    ip_restriction {
+#      name = "AllowAPIM"
+#      priority = 300
+#      ip_address = data.azurerm_api_management.core.public_ip_addresses[0]
+#    }
+#  }
 }
+
+data "azurerm_function_app_host_keys" "compute" {
+  name                = azurerm_function_app.compute.name
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+
