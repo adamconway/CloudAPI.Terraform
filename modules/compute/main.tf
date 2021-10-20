@@ -39,13 +39,7 @@ resource "azurerm_function_app" "compute" {
 
   https_only = true
 
-#  site_config {
-#    ip_restriction {
-#      name = "AllowAPIM"
-#      priority = 300
-#      ip_address = data.azurerm_api_management.core.public_ip_addresses[0]
-#    }
-#  }
+  version = "~3"
 }
 
 data "azurerm_function_app_host_keys" "compute" {
