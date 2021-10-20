@@ -11,6 +11,8 @@ resource "azurerm_function_app" "func" {
 
   version = var.function_version
 
+  app_settings = var.app_settings
+
   tags = var.tags
 }
 
@@ -32,21 +34,27 @@ resource "azurerm_api_management_backend" "func" {
 
   credentials {
     header = {
-      "x-functions-key": azurerm_api_management_named_value.func_key.value
+      "x-functions-key": azurerm_api_management_named_value.func.value
     }
   }
 }
 
 resource "azurerm_api_management_api" "func" {
   name                = "${var.name}-api"
+  display_name        = "${var.name}-api"
   resource_group_name = var.apim_resource_group_name
   api_management_name = var.apim_name
   revision            = "1"
   path                = var.api_path
   protocols           = ["https"]
+  service_url         = "https://${azurerm_function_app.func.default_hostname}/api"
+
+  lifecycle {
+    ignore_changes = [display_name, description]
+  }
 }
 
-resource "azurerm_api_management_api_policy" "api_policy" {
+resource "azurerm_api_management_api_policy" "func" {
   api_name            = azurerm_api_management_api.func.name
   resource_group_name = var.apim_resource_group_name
   api_management_name = var.apim_name
@@ -70,12 +78,11 @@ resource "azurerm_api_management_api_policy" "api_policy" {
 XML
 }
 
-resource "azurerm_api_management_named_value" "func_key" {
+resource "azurerm_api_management_named_value" "func" {
   name                = "${var.name}-key"
   resource_group_name = var.apim_resource_group_name
   api_management_name = var.apim_name
   display_name        = "${var.name}-key"
-  value               = data.azurerm_function_app_host_keys.func
+  value               = data.azurerm_function_app_host_keys.func.default_function_key
   secret              = "true"
-  tags = var.tags
 }

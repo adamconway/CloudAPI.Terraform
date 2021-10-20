@@ -24,7 +24,12 @@ variable "storage_account_access_key" {
 
 variable "function_version" {
   description = "Version of the function runtime to use"
-  default = "~1"
+  default = "~3"
+}
+
+variable "app_settings" {
+  description = "A map of key-value pairs for App Settings and custom values."
+  default = {}
 }
 
 variable "apim_name" {
