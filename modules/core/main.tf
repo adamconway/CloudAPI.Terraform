@@ -1,5 +1,5 @@
 locals {
-  resource_suffix = "cloudapi-${var.environment_name}-${var.region}"
+  resource_suffix = "cloudapi-${var.environment_name}aueast"
 }
 
 resource "azurerm_resource_group" "core" {
@@ -16,3 +16,12 @@ resource "azurerm_api_management" "core" {
   sku_name = "Consumption_0"
 }
 
+#resource "azurerm_key_vault" "core" {
+#  name                        = "kv-${local.resource_suffix}"
+#  location                    = azurerm_resource_group.core.location
+#  resource_group_name         = azurerm_resource_group.core.name
+#
+#  tenant_id                   = data.azurerm_client_config.current.tenant_id
+#
+#  sku_name = "standard"
+#}

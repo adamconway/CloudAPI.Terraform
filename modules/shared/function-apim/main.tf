@@ -21,7 +21,6 @@ data "azurerm_function_app_host_keys" "func" {
   resource_group_name = var.resource_group_name
 }
 
-
 # APIM Setup
 resource "azurerm_api_management_backend" "func" {
   name                = var.name

@@ -1,5 +1,5 @@
 locals {
-  resource_suffix = "cloudapi-${var.environment_name}-${var.region}"
+  resource_suffix = "cloudapi-${var.environment_name}aueast"
 }
 
 resource "azurerm_resource_group" "rg" {

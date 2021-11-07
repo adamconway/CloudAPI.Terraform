@@ -1,0 +1,29 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  # Pipeline
+  isMasterBuild: $[contains(variables['Build.SourceBranch'], 'refs/heads/master')]
+
+  # Terraform
+  terraformVersion: "1.0.2"
+
+  # Azure
+  azureSubscription: "cloudapi-devops-sc"
+  azureSubscriptionId: "30488513-6cba-450a-9431-64d9bf16a526"
+
+stages:
+  - stage: Deploy_Dev
+    displayName: Deploy Dev
+    jobs:
+      - template: pipelines/terraform-deploy.yml
+        parameters:
+          terraformVersion: $[variables['terraformVersion']]
+          azureSubscription: $[variables['azureSubscription']]
+          azureSubscriptionId: $[variables['azureSubscriptionId']]
+          terraformEnv: dev

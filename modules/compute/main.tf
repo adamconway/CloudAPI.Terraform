@@ -1,6 +1,6 @@
 locals {
-  resource_suffix = "cloudapi-${var.environment_name}-${var.region}"
-  storage_resource_suffix = "capi${var.environment_name}${var.region}"
+  resource_suffix = "cloudapi-${var.environment_name}aueast"
+  storage_resource_suffix = "capi${var.environment_name}aueast"
 
 }
 
