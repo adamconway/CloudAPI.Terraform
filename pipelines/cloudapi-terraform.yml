@@ -23,7 +23,7 @@ stages:
     jobs:
       - template: terraform-deploy.yml
         parameters:
-          terraformVersion: $[variables['terraformVersion']]
-          azureSubscription: $[variables['azureSubscription']]
-          azureSubscriptionId: $[variables['azureSubscriptionId']]
+          terraformVersion: $(terraformVersion)
+          azureSubscription: $(azureSubscription)
+          azureSubscriptionId: $(azureSubscriptionId)
           terraformEnv: dev
