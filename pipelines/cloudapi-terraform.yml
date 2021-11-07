@@ -21,7 +21,7 @@ stages:
   - stage: Deploy_Dev
     displayName: Deploy Dev
     jobs:
-      - template: pipelines/terraform-deploy.yml
+      - template: terraform-deploy.yml
         parameters:
           terraformVersion: $[variables['terraformVersion']]
           azureSubscription: $[variables['azureSubscription']]
